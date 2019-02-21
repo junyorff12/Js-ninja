@@ -27,16 +27,61 @@
 	- Ao pressionar o botão "CE", o input deve ficar zerado.
 	*/
 
+	//selecionando os elementos no DOM
+
 	let $visor = document.querySelector('[data-js="visor"]');
+	let $buttonsOperations = document.querySelectorAll('[data-js="button-operation"]');
 	let $buttonsNumbers = document.querySelectorAll('[data-js="button-number"]');
+	let $buttonCE = document.querySelector('[data-js="button-ce"]');
+	let $buttonEqual = document.querySelector('[data-js="button-equal"]');
+
+	//add events to buttons
 
 	Array.prototype.forEach.call($buttonsNumbers, function( button ) {
 		button.addEventListener('click', handleClickNumber, false);
 	});
 
+	Array.prototype.forEach.call($buttonsOperations, function( button ) {
+		button.addEventListener('click', handleClickOperation, false);
+	});
+
+	$buttonCE.addEventListener('click', handleClickCE, false );
+	$buttonEqual.addEventListener('click', handleClickEqual, false);
+
+
+
+	// callbacks functions for events Listeners
+
 	function handleClickNumber( event ) {
 		$visor.value += this.value;
 	}
+
+	function handleClickOperation( event ) {
+		removeLastItemIfItIsAnOpertor();
+		$visor.value += this.value;
+	}
+
+
+	function handleClickCE( event ) {
+		$visor.value = 0;
+	}
 	
+	function isLastitemAnOperation() { // verifica se o ultimo item é uma operacao.
+		let operations = ['+', '-', 'x', '/' ];
+		let lastItem = $visor.value.split('').pop();
+		return operations.some( function( operator ){
+			return operator === lastItem;
+		});
+	}
+
+	function handleClickEqual( event ) {
+		removeLastItemIfItIsAnOpertor();
+		console.log($visor.value.match(/\d+/g));
+	}
+
+	function removeLastItemIfItIsAnOpertor(){
+		if( isLastitemAnOperation() ) // se true, remove o ultimo e substitui pelo digitado.
+			$visor.value = $visor.value.slice(0, -1);
+	}
 
 })(window, document);
