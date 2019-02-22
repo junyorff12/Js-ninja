@@ -1,12 +1,13 @@
-(function(){
+(function(window, document){
+    'use strict';
 
 	/*
 	Vamos desenvolver mais um projeto. A ideia é fazer uma mini-calculadora.
 	As regras são:
 
 	- Deve ter somente 1 input, mas não deve ser possível entrar dados nesse input
-	diretamente;
-	- O input deve iniciar com valor zero;
+	diretamente; // readonly
+	- O input deve iniciar com valor zero; input.value = 0;
 	- Deve haver 10 botões para os números de 0 a 9. Cada botão deve ser um número;
 	- Deve haver 4 botões para as operações principais: soma (+), subtração(-),
 	multiplicação(x) e divisão(÷);
@@ -25,5 +26,89 @@
 	input;
 	- Ao pressionar o botão "CE", o input deve ficar zerado.
 	*/
+
+	//selecionando os elementos no DOM
+
+	let $visor = document.querySelector('[data-js="visor"]');
+	let $buttonsOperations = document.querySelectorAll('[data-js="button-operation"]');
+	let $buttonsNumbers = document.querySelectorAll('[data-js="button-number"]');
+	let $buttonCE = document.querySelector('[data-js="button-ce"]');
+	let $buttonEqual = document.querySelector('[data-js="button-equal"]');
+
+	//add events to buttons
+
+	Array.prototype.forEach.call($buttonsNumbers, function( button ) {
+		button.addEventListener('click', handleClickNumber, false);
+	});
+
+	Array.prototype.forEach.call($buttonsOperations, function( button ) {
+		button.addEventListener('click', handleClickOperation, false);
+	});
+
+	$buttonCE.addEventListener('click', handleClickCE, false );
+	$buttonEqual.addEventListener('click', handleClickEqual, false);
+
+
+
+	// callbacks functions for events Listeners
+
+	function handleClickNumber( event ) {
+		$visor.value += this.value;
+	}
+
+	function handleClickOperation( event ) {
+		$visor.value = removeLastItemIfItIsAnOpertor( $visor.value );
+		$visor.value += this.value;
+	}
+
+
+	function handleClickCE( event ) {
+		$visor.value = 0;
+	}
 	
-})();
+	function handleClickEqual( event ) {
+
+		$visor.value = removeLastItemIfItIsAnOpertor( $visor.value );
+
+		let allValues = $visor.value.match(/\d+[+x/-]?/g);
+
+		let result = allValues.reduce(function( accumulated, actual ) {
+			
+			let firstValue = accumulated.slice(0, -1);
+			let operator = accumulated.split('').pop();
+			let lastValue = removeLastItemIfItIsAnOpertor(actual);
+			let lastOperator = isLastItemAnOperation( actual ) ? actual.split('').pop() : '';
+
+			switch( operator ) {
+				case '+':
+					return ( Number(firstValue) + Number(lastValue) ) + lastOperator;
+				case '-':
+					return ( Number(firstValue) - Number(lastValue) ) + lastOperator;
+				case '/':
+					return ( Number(firstValue) / Number(lastValue) ) + lastOperator;
+				case 'x':
+					return ( Number(firstValue) * Number(lastValue) ) + lastOperator;
+			}
+
+		},);
+
+		$visor.value = result;
+	}
+
+	function isLastItemAnOperation( number ) { // verifica se o ultimo item é uma operacao.
+		let operations = ['+', '-', 'x', '/' ];
+		let lastItem = number.split('').pop();
+		return operations.some( function( operator ){
+			return operator === lastItem;
+		});
+	}
+
+	function removeLastItemIfItIsAnOpertor( number ){
+		if( isLastItemAnOperation( number ) ) {         // se true, remove o ultimo e substitui pelo digitado.
+			return number.slice(0, -1);
+		}
+
+		return number;
+	}
+
+})(window, document);
