@@ -58,12 +58,37 @@
 	}
 
 	function handleClickOperation( event ){
-		removeLastItemIfOperation( $visor.value );
+		$visor.value = removeLastItemIfOperation( $visor.value );
 		$visor.value += this.value;
 	}
 
 	function handleClickEqual( event ){
+		$visor.value = removeLastItemIfOperation( $visor.value );
+		let op = $visor.value.match(/\d+[+x\/-]?/g);
 		
+		let result = op.reduce( (accumulated, actual) => {
+			let operator = accumulated.split('').pop();
+			let lastItem = actual;
+			let firstItem = accumulated.slice(0, -1);
+			console.log( operator, firstItem , lastItem );
+
+			switch ( operator ) {
+				case '+':
+					return Number( firstItem ) + Number( lastItem );
+				case '-':
+					return Number( firstItem ) - Number( lastItem );
+				case 'x':
+					return Number( firstItem ) * Number( lastItem );
+				case '/':
+					return Number( firstItem ) / Number( lastItem );
+		
+			}
+
+
+		});
+
+		$visor.value = result;
+
 	}
 
 	// functions helpers
@@ -85,8 +110,4 @@
 	}
 
 
-
-
-
-	
 })(window, document);
