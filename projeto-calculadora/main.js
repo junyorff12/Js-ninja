@@ -38,7 +38,7 @@
 	// adding events to buttons
 
 	Array.prototype.forEach.call( $buttonsNumbers, ( button ) => {
-		button.addEventListener('click', handleClickNumber, false);
+		button.addEventListener('click', 	handleClickNumber, false);
 	});
 
 
@@ -64,23 +64,25 @@
 
 	function handleClickEqual( event ){
 		$visor.value = removeLastItemIfOperation( $visor.value );
-		let op = $visor.value.match(/\d+[+x\/-]?/g);
+		let allValues = $visor.value.match(/\d+[+x\/-]?/g);
 		
-		let result = op.reduce( (accumulated, actual) => {
+		let result = allValues.reduce( (accumulated, actual) => {
 			let operator = accumulated.split('').pop();
-			let lastItem = actual;
 			let firstItem = accumulated.slice(0, -1);
-			console.log( operator, firstItem , lastItem );
+			let lastItem = removeLastItemIfOperation( actual );
+			let nextOperator = isLastItemOperation( actual ) ? actual.split('').pop() : '';
+
+			console.log( operator, firstItem , lastItem, nextOperator );
 
 			switch ( operator ) {
 				case '+':
-					return Number( firstItem ) + Number( lastItem );
+					return (Number( firstItem ) + Number( lastItem )) + nextOperator;
 				case '-':
-					return Number( firstItem ) - Number( lastItem );
+					return (Number( firstItem ) - Number( lastItem )) + nextOperator;
 				case 'x':
-					return Number( firstItem ) * Number( lastItem );
+					return (Number( firstItem ) * Number( lastItem )) + nextOperator;
 				case '/':
-					return Number( firstItem ) / Number( lastItem );
+					return (Number( firstItem ) / Number( lastItem )) + nextOperator;
 		
 			}
 
