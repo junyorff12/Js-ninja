@@ -1,18 +1,17 @@
 (function(window, document){
 	'use strict';
 
-	let $a = document.querySelector('[data-js="span"]');
-	let $div = document.querySelector('[data-js="div"]');
-	let $span = document.querySelector('[data-js="span"]');
+	let $input = document.querySelector('[data-js="input"]');
+	let $select = document.querySelector('[data-js="select"]');
 
-	$div.addEventListener('click', event => alert('clicou na div!'), false);
+	$input.addEventListener('keydown', function(event){
+		console.log(this.value);
+	}, false);
 
-	$a.addEventListener('click', event => {
-        event.preventDefault();
-		alert('clicou no a')
-		}
-	, false);
+	$select.addEventListener('change', function( e) {
+		document.querySelector('[data-js="input"]').value = this.value;
+	}, false)
 
-	$span.addEventListener('click', event => alert('clicou no spam'), false);
+
 
 })(window, document);
