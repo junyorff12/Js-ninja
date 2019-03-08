@@ -19,7 +19,14 @@
 	*/
 
 	let $main = document.querySelector('.main-content');
+	let $mainHeader = document.querySelector('.main-header');
+	let $mainContent = document.querySelector('.main-content');
+
+	$mainContent.appendChild( $mainHeader );
+
     console.log( $main.firstElementChild.hasAttributes() );
+
+
 
 
 })();
