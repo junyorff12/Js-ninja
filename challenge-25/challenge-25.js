@@ -18,13 +18,42 @@
 	desafio os experimentos legais que você conseguir desenvolver :D
 	*/
 
-	let $main = document.querySelector('.main-content');
+	let $main = document.querySelector('.main');
 	let $mainHeader = document.querySelector('.main-header');
 	let $mainContent = document.querySelector('.main-content');
+	let $cloneMainHeader = $mainHeader.cloneNode(true);
+    let $mainFooter = document.querySelector('.main-footer');
 
-	$mainContent.appendChild( $mainHeader );
+	let firstText = $mainContent.firstChild;
+    
+    let $h1 = $mainHeader.firstElementChild;
 
-    console.log( $main.firstElementChild.hasAttributes() );
+    let $newP = document.createElement('p');
+    let $newText = document.createTextNode('Novo p!');
+    $newP.appendChild($newText);
+
+    $main.appendChild($newP);
+
+    console.log($main.getAttribute('class'));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
