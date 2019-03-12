@@ -1,15 +1,25 @@
-(function(){
+(function (doc){
 	'use strint';
 
-	let fragment = document.createDocumentFragment();
+    function afterDomContentLoaded() {
+    	alert('DOMContentLoaded!');
+		let fragment = doc.createDocumentFragment();
 
-	let newP = document.createElement('p');
-	let textNode = document.createTextNode('Meu paragrafo!');
-	newP.appendChild(textNode);
-	fragment.appendChild(newP);
-	document.body.appendChild(fragment);
-	console.log( fragment );
+		let newP = doc.createElement('p');
+		let textNode = doc.createTextNode('Meu paragrafo!');
+		newP.appendChild(textNode);
+		fragment.appendChild(newP);
+	 	doc.body.appendChild(fragment);
+		console.log( fragment );
+    	
+    }
+
+    function afterWindowLoad(){
+    	alert('afterWindowLoad!');
+    }
+
+    doc.addEventListener('DOMContentLoaded', afterDomContentLoaded, false);
+    window.addEventListener('load', afterWindowLoad, false);
 
 
-
-})();
+})(document);
