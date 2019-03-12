@@ -43,13 +43,47 @@
 		return this.element;    
 	};
 
-	DOM.prototype.domForEach = function domForEach( elements ) {
-		return Array.prototype.forEach.call(element, ( element ) => {
-			return element;
-		});
-	}
+	DOM.prototype.forEach = function forEach() {
+		return Array.prototype.forEach.apply(this.element, arguments ); // nunk se esquecer do arguments.
+ 	}
 
-	DOM('div');
+ 	DOM.prototype.map = function map(){
+ 		return Array.prototype.map.apply(this.element, arguments );
+ 	}
+
+ 	DOM.prototype.filter = function filter(){
+ 		return Array.prototype.filter.apply(this.element, arguments );
+ 	}
+
+ 	DOM.prototype.reduce = function reduce(){
+ 		return Array.prototype.reduce.apply(this.element, arguments );
+ 	}
+
+    DOM.prototype.reduceRight = function reduceRight(){
+ 		return Array.prototype.reduceRight.apply(this.element, arguments );
+ 	}
+
+ 	DOM.prototype.every = function every(){
+ 		return Array.prototype.every.apply(this.element, arguments );
+ 	}
+
+ 	 DOM.prototype.some = function some(){
+ 		return Array.prototype.some.apply(this.element, arguments );
+ 	}
+
+ 	DOM.prototype.is = function is( obj ){
+ 		
+ 	}
+
+ 	
+	let $a = new DOM('[data-js="link"]');
+	$a.forEach( item => console.log(item) );
+
+	console.log($a.reduce( (acc, item, index) => { 
+		return acc  + ' ' + item.textContent + ' ' + index;
+	},0));
+
+
 	
 
 })(document);
