@@ -2,13 +2,23 @@
 	'use strict';
 
     let xhttp = new XMLHttpRequest();
-    xhttp.open('GET', '/data/data.xml');
+    xhttp.open('GET', '/data/data.json');
     xhttp.send();
+    console.log('carregando...')
+
+    let response ='';
 
     xhttp.onreadystatechange = function(){
+    
         if( isRequestOk() ) {
-        	//let data = JSON.parse(xhttp.responseText);
-        	console.log('Requisição okay\n', xhttp.responseXML );
+        	//console.log('Requisição okay\n', xhttp.responseXML );
+            try{
+                response = JSON.parse(xhttp.responseText);
+            }
+            catch(e){
+                response = xhttp.responseText;
+            }
+            console.log(response);
         }
 
     };
