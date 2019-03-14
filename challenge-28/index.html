@@ -1,12 +1,43 @@
 <!DOCTYPE html>
 <html>
+
 <head lang="pt-br">
 	<meta charset="utf-8">
 	<title>Challenge 28</title>
 </head>
-<body>
-	<form >CEP</form>
 
-    <script src="Challenge-28" type="text/javascript"></script>
+<body>
+	<div class="form">
+		<h1>Endereço</h1>
+		<form>
+			<input data-js="cep" type="text" name="cep">
+			<button type="submit">Buscar</button>
+		</form>
+	</div>
+	<div class="table">
+		<table>
+			<tr>
+				<th>Logradouro</th>
+				<th>Bairro</th>
+				<th>Estado</th>
+				<th>Cidade</th>
+				<th>CEP</th>
+			</tr>
+			<tr>
+				<td value="" data-js="Logradouro">#</td>
+				<td value="" data-js="Bairro">#</td>
+				<td value="" data-js="Estado">#</td>
+				<td value="" data-js="Cidade">#</td>
+				<td value="" data-js="CEP">#</td>
+			</tr>
+		</table>
+	<div>
+		<P data-js="status">#</P>
+	</div>
+	</div>
+
+
+	<script src="Challenge-28" type="text/javascript"></script>
 </body>
+
 </html>
