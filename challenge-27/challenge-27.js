@@ -69,16 +69,18 @@
   }
 
   DOM.prototype.is = function is( obj ){
-    
+    return Object.prototype.toString.call(obj);
   }
 
-  
+  DOM.prototype.isArray = function isArray( obj ){
+    
+     return this.is(obj) === '[object Array]';
+  }
+
   let $a = new DOM('[data-js="link"]');
   $a.forEach( item => console.log(item) );
 
-  console.log($a.reduce( (acc, item, index) => { 
-    return acc  + ' ' + item.textContent + ' ' + index;
-  },0));
+  console.log($a.isArray([]));
 
 
   
