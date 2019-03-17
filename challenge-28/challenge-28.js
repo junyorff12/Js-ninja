@@ -80,8 +80,9 @@
     return Object.prototype.toString.call(obj);
   };
 
+  
 
-    $input = document.querySelector('[data-js="cep"]');
+  let $input = document.querySelector('[data-js="cep"]');
     
 
 

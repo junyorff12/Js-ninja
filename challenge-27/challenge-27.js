@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 (function(document){
   'use strict';
   
@@ -73,11 +74,39 @@
   }
 
   DOM.prototype.isArray = function isArray( obj ){
-    
-     return this.is(obj) === '[object Array]';
+    return this.is(obj) === '[object Array]';
   }
 
+  DOM.prototype.isString = function isString( obj ){
+    return this.is(obj) === '[object String]';
+  }
+
+  DOM.prototype.isObject = function isObject( obj ){
+    return this.is(obj) === '[object Object]';
+  }
+
+  DOM.prototype.isNumber = function isNumber( obj ){
+    return this.is(obj) === '[object Number]';
+  }
+
+  DOM.prototype.isBoolean = function isBoolean( obj ){
+    return this.is(obj) === '[object Boolean]';
+  }
+
+  DOM.prototype.isFunction = function isFunction( obj ){
+    return this.is(obj) === '[object Function]';
+  }
+
+  DOM.prototype.isNull = function isNull( obj ){
+    return this.is(obj) === '[object Null]'
+        || this.is(obj) === '[object Undefined]';
+  }
+
+//- isArray, isObject, isFunction, isNumber, isString, isBoolean, isNull
+
+
   let $a = new DOM('[data-js="link"]');
+  
   $a.forEach( item => console.log(item) );
 
   console.log($a.isArray([]));
