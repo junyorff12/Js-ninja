@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 (function(){
     'use strict';
     /*
@@ -27,7 +28,6 @@
     - Utilize a lib DOM criada anteriormente para facilitar a manipulação e
     adicionar as informações em tela.
     */
-
    function DOM( string ){
     this.element = document.querySelectorAll(string);
   }
@@ -78,11 +78,60 @@
 
   DOM.prototype.is = function is( obj ){
     return Object.prototype.toString.call(obj);
-  };
+  }
+
+  DOM.prototype.isArray = function isArray( obj ){
+    return this.is(obj) === '[object Array]';
+  }
+
+  DOM.prototype.isString = function isString( obj ){
+  return this.is(obj) === '[object String]';
+}
+
+  DOM.prototype.isObject = function isObject( obj ){
+    return this.is(obj) === '[object Object]';
+  }
+
+  DOM.prototype.isNumber = function isNumber( obj ){
+    return this.is(obj) === '[object Number]';
+  }
+
+  DOM.prototype.isBoolean = function isBoolean( obj ){
+    return this.is(obj) === '[object Boolean]';
+  }
+
+  DOM.prototype.isFunction = function isFunction( obj ){
+    return this.is(obj) === '[object Function]';
+  }
+
+  DOM.prototype.isNull = function isNull( obj ){
+    return this.is(obj) === '[object Null]'
+        || this.is(obj) === '[object Undefined]';
+  }
+
 
   
+  let $formCEP = new DOM('[data-js="form-cep"]');
+  let $inputCEP = new DOM('[data-js="input-cep"]');
+  let ajax = new XMLHttpRequest();
 
-  let $input = document.querySelector('[data-js="cep"]');
+  $formCEP.on('submit', handleSubmitFormCEP);
+
+  function handleSubmitFormCEP(event){
+    event.preventDefault();
+    ajax.open('GET', 'https://viacep.com.br/ws/'+ $inputCEP.get()[0].value +'/json/')
+    ajax.send();
+    ajax.addEventListener('readystatechange', handleReadyStateChange);
+  }
+
+  function handleReadyStateChange(){
+    if (ajax.readyState === 4 && ajax.status === 200){
+      console.log(ajax.responseText);
+    }
+    console.log($inputCEP.get()[0].value);
+  }
+
+  
     
 
 
