@@ -108,31 +108,57 @@
     return this.is(obj) === '[object Null]'
         || this.is(obj) === '[object Undefined]';
   }
-
-
-  
+ 
   let $formCEP = new DOM('[data-js="form-cep"]');
   let $inputCEP = new DOM('[data-js="input-cep"]');
   let ajax = new XMLHttpRequest();
 
-  $formCEP.on('submit', handleSubmitFormCEP);
 
+  $formCEP.on('submit', handleSubmitFormCEP);
+  
+  
   function handleSubmitFormCEP(event){
     event.preventDefault();
-    ajax.open('GET', 'https://viacep.com.br/ws/'+ $inputCEP.get()[0].value +'/json/')
+    let url = getUrl();
+    ajax.open('GET', url);
     ajax.send();
     ajax.addEventListener('readystatechange', handleReadyStateChange);
   }
-
-  function handleReadyStateChange(){
-    if (ajax.readyState === 4 && ajax.status === 200){
-      console.log(ajax.responseText);
-    }
-    console.log($inputCEP.get()[0].value);
-  }
-
   
+  function getUrl() {
+    return 'https://viacep.com.br/ws/[CEP]/json/'.replace(
+      '[CEP]',
+      $inputCEP.get()[0].value.replace(/\D/g, '')
+      );
+    }
     
+    function handleReadyStateChange(){
+      if ( isRequestOk() ){
+        fillCEPFields();
+      }
+    }
 
+    function isRequestOk(){
+      return ajax.readyState === 4 && ajax.status === 200;
+    }
+
+    function fillCEPFields(){
+      let data = JSON.parse(ajax.responseText);
+      let logradouro = new DOM('[data-js="logradouro"]');
+      let bairro = new DOM('[data-js="bairro"]');
+      let estado = new DOM('[data-js="estado"]');
+      let cidade = new DOM('[data-js="cidade"]');
+      let cep = new DOM('[data-js="cep"]');
+      let status = new DOM('[data-js="status"]');
+
+      console.log(data);
+
+      logradouro.get()[0].textContent = data.logradouro;
+      bairro.get()[0].textContent = data.bairro;
+      estado.get()[0].textContent = data.uf ;
+      cidade.get()[0].textContent = data.localidade;
+      cep.get()[0].textContent = data.cep;
+      status.get()[0].textContent = ajax.readyState;
+    }
 
 })();
