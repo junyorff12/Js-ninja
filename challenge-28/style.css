@@ -1,0 +1,41 @@
+table, td, th, tr{
+    border: 1px solid #000000;
+    padding: 15px 15px 15px 4px;
+    border-collapse: collapse;
+}
+td {
+    width: inherit;
+    height: inherit;
+    text-align: left;
+
+}
+
+table {
+    margin-top: 15px;
+}
+
+th {
+    text-align: left;
+}
+
+.status {
+    margin-bottom: 2px;
+    display: inline-block;
+
+
+
+}
+.div-span{
+   
+    
+    text-align: left;
+    padding: 5px 5px 5px 0;
+    border: 1px solid #000000;
+    width: 50px;
+    display: inline-block;
+
+}
+
+.div-status {
+    margin:15px auto auto 2px;
+}

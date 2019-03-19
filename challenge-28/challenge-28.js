@@ -111,6 +111,12 @@
  
   let $formCEP = new DOM('[data-js="form-cep"]');
   let $inputCEP = new DOM('[data-js="input-cep"]');
+  let $logradouro = new DOM('[data-js="logradouro"]');
+  let $bairro = new DOM('[data-js="bairro"]');
+  let $estado = new DOM('[data-js="estado"]');
+  let $cidade = new DOM('[data-js="cidade"]');
+  let $cep = new DOM('[data-js="cep"]');
+  let $status = new DOM('[data-js="status"]');
   let ajax = new XMLHttpRequest();
 
 
@@ -122,6 +128,7 @@
     let url = getUrl();
     ajax.open('GET', url);
     ajax.send();
+    getMessage('loading');  
     ajax.addEventListener('readystatechange', handleReadyStateChange);
   }
   
@@ -135,6 +142,7 @@
     function handleReadyStateChange(){
       if ( isRequestOk() ){
         fillCEPFields();
+        getMessage('ok');
       }
     }
 
@@ -143,22 +151,36 @@
     }
 
     function fillCEPFields(){
-      let data = JSON.parse(ajax.responseText);
-      let logradouro = new DOM('[data-js="logradouro"]');
-      let bairro = new DOM('[data-js="bairro"]');
-      let estado = new DOM('[data-js="estado"]');
-      let cidade = new DOM('[data-js="cidade"]');
-      let cep = new DOM('[data-js="cep"]');
-      let status = new DOM('[data-js="status"]');
-
-      console.log(data);
-
-      logradouro.get()[0].textContent = data.logradouro;
-      bairro.get()[0].textContent = data.bairro;
-      estado.get()[0].textContent = data.uf ;
-      cidade.get()[0].textContent = data.localidade;
-      cep.get()[0].textContent = data.cep;
-      status.get()[0].textContent = ajax.readyState;
+      let data = parseData();
+      if (!data)
+        getMessage('erro');
+      
+      $logradouro.get()[0].textContent = data.logradouro;
+      $bairro.get()[0].textContent = data.bairro;
+      $estado.get()[0].textContent = data.uf ;
+      $cidade.get()[0].textContent = data.localidade;
+      $cep.get()[0].textContent = data.cep;
+    } 
+    
+    function parseData(){
+      let res;
+      try {
+        res = JSON.parse(ajax.responseText);
+      }
+      catch(e){
+        res = null;
+      }
+      return res;
     }
-
-})();
+    
+    function getMessage( type ){
+      debugger;
+      let message = {
+        loading: 'Buscando informações para o CEP [CEP]...',
+        ok: 'Endereço referente ao CEP [CEP]:',
+        erro: 'Não encontramos o endereço para o CEP [CEP].'
+      }
+      $status.get()[0].textContent = message[type];
+    }
+    
+  })();
