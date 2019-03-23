@@ -174,13 +174,16 @@
     }
     
     function getMessage( type ){
-      debugger;
       let message = {
-        loading: 'Buscando informações para o CEP [CEP]...',
-        ok: 'Endereço referente ao CEP [CEP]:',
-        erro: 'Não encontramos o endereço para o CEP [CEP].'
+        loading: 'Buscando informações para o CEP : '+ getCEP() + ' ...',
+        ok: 'Endereço referente ao CEP '+ getCEP() +' :',
+        erro: 'Não encontramos o endereço para o CEP '+ getCEP() + ' .'
       }
       $status.get()[0].textContent = message[type];
+    }
+
+    function getCEP(){
+      return $inputCEP.get()[0].value.replace(/\D/g, '');
     }
     
   })();
