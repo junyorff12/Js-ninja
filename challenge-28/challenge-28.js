@@ -135,14 +135,14 @@
   function getUrl() {
     return 'https://viacep.com.br/ws/[CEP]/json/'.replace(
       '[CEP]',
-      $inputCEP.get()[0].value.replace(/\D/g, '')
+      getCEP()
       );
     }
     
     function handleReadyStateChange(){
       if ( isRequestOk() ){
-        fillCEPFields();
         getMessage('ok');
+        fillCEPFields();
       }
     }
 
@@ -152,15 +152,26 @@
 
     function fillCEPFields(){
       let data = parseData();
-      if (!data)
+      if (!data) {
         getMessage('erro');
-      
+        data = clearData();
+      }
       $logradouro.get()[0].textContent = data.logradouro;
       $bairro.get()[0].textContent = data.bairro;
       $estado.get()[0].textContent = data.uf ;
       $cidade.get()[0].textContent = data.localidade;
       $cep.get()[0].textContent = data.cep;
-    } 
+    }
+
+    function clearData(){
+      return {
+        logradouro: '-',
+        bairro: '-',
+        uf: '-',
+        localidade: '-',
+        cep: '-'
+      }
+    }
     
     function parseData(){
       let res;
