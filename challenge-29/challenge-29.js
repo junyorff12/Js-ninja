@@ -1,4 +1,4 @@
-(function() {
+(function(window, DOM) {
   'use strict';
 
   /*
@@ -35,5 +35,30 @@
   E aqui nesse arquivo, faça a lógica para cadastrar os carros, em um módulo
   que será nomeado de "app".
   */
+  function app(){
 
-})();
+    let $img = new DOM('[data-js="input-img"]');
+    let $marca = new DOM('[data-js="input-marca"]');
+    let $ano = new DOM('[data-js="input-ano"]');
+    let $placa = new DOM('[data-js="input-placa"]');
+    let $cor = new DOM('[data-js="input-cor"]');
+    let $formCarros = new DOM('[data-js="form-carros"]');
+    let ajax = new XMLHttpRequest();
+
+    $formCarros.on( 'submit', handleFormSubmit );
+
+    function handleFormSubmit(event){
+      event.preventDefault();
+      fillTheCarTables();
+    }
+
+    function fillTheCarTables(){
+
+    }
+
+  }
+
+
+  app();
+
+})(window, DOM);
