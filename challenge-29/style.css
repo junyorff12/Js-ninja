@@ -1,0 +1,48 @@
+table {
+    float: right;
+    margin: 10px;
+    border-collapse: collapse;
+    width: 45%;
+    
+}
+
+th, td{
+    border: 1px solid #D8D8D8;
+    height: 30px;
+    width: 100px;
+    padding: 0 5px 0 5px;
+   
+}
+
+form {
+    padding-left: 10px;
+    float: left;
+    width: 45%;
+}
+
+input {
+    margin: 5px 0 5px 0;
+    height: 18px;
+    display: block;
+    width: 300px;
+    text-align: center;
+}
+
+header {
+    text-align: center;
+}
+
+button {
+    margin-top: 10px;
+    background-color: #04B404;
+    width: 120px;
+    height: 30px;
+    border-radius: 6px;
+}
+
+body {
+    font-family: sans-serif;
+    
+}
+
+
