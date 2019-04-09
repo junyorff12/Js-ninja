@@ -49,35 +49,37 @@
     return Array.prototype.some.apply(this.element, arguments );
     };
 
-    DOM.prototype.is = function is( obj ){
+    //metodos estaticos
+
+    DOM.is = function is( obj ){
     return Object.prototype.toString.call(obj);
     };
 
-    DOM.prototype.isArray = function isArray( obj ){
+    DOM.isArray = function isArray( obj ){
     return this.is(obj) === '[object Array]';
     };
 
-    DOM.prototype.isString = function isString( obj ){
+    DOM.isString = function isString( obj ){
     return this.is(obj) === '[object String]';
     };
 
-    DOM.prototype.isObject = function isObject( obj ){
+    DOM.isObject = function isObject( obj ){
     return this.is(obj) === '[object Object]';
     };
 
-    DOM.prototype.isNumber = function isNumber( obj ){
+    DOM.isNumber = function isNumber( obj ){
     return this.is(obj) === '[object Number]';
     };
 
-    DOM.prototype.isBoolean = function isBoolean( obj ){
+    DOM.isBoolean = function isBoolean( obj ){
     return this.is(obj) === '[object Boolean]';
     };
 
-    DOM.prototype.isFunction = function isFunction( obj ){
+    DOM.isFunction = function isFunction( obj ){
     return this.is(obj) === '[object Function]';
     };
 
-    DOM.prototype.isNull = function isNull( obj ){
+    DOM.isNull = function isNull( obj ){
     return this.is(obj) === '[object Null]'
         || this.is(obj) === '[object Undefined]';
     };

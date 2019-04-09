@@ -1,4 +1,4 @@
-(function(window, DOM) {
+(function(DOM) {
   'use strict';
 
   /*
@@ -36,29 +36,14 @@
   que será nomeado de "app".
   */
   function app(){
-
-    let $img = new DOM('[data-js="input-img"]');
-    let $marca = new DOM('[data-js="input-marca"]');
-    let $ano = new DOM('[data-js="input-ano"]');
-    let $placa = new DOM('[data-js="input-placa"]');
-    let $cor = new DOM('[data-js="input-cor"]');
-    let $formCarros = new DOM('[data-js="form-carros"]');
-    let ajax = new XMLHttpRequest();
-
-    $formCarros.on( 'submit', handleFormSubmit );
-
-    function handleFormSubmit(event){
-      event.preventDefault();
-      fillTheCarTables();
-    }
-
-    function fillTheCarTables(){
-      
-    }
-
+    return {
+      init: function() {
+        console.log('app init');
+      }
+    };
   }
 
 
-  app();
+  app().init();
 
-})(window, DOM);
+})(window.DOM);
