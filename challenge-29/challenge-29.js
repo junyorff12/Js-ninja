@@ -37,8 +37,22 @@
   */
   function app(){
     return {
-      init: function() {
+      init: function init() {
         console.log('app init');
+        this.companyInfo();
+      },
+
+      companyInfo: function companyInfo() {
+        console.log('company info');
+        let ajax = new XMLHttpRequest(); //crio ajax
+        ajax.open('GET', '/company.json', true); //abro a conexao
+        ajax.send(); //envio o request
+        ajax.addEventListener('onreadystatechange', this.getCompanyInfo, false);
+      },
+
+      getCompanyInfo: function getCompanyInfo() {
+        if( this.readyState === 4 && this.status === 200 )
+          console.log( this.responseText );
       }
     };
   }
