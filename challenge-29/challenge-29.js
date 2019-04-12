@@ -35,7 +35,7 @@
   E aqui nesse arquivo, faça a lógica para cadastrar os carros, em um módulo
   que será nomeado de "app".
   */
-  function app(){
+  function app() {
     return {
       init: function init() {
         console.log('app init');
@@ -44,20 +44,27 @@
 
       companyInfo: function companyInfo() {
         console.log('company info');
-        let ajax = new XMLHttpRequest(); //crio ajax
-        ajax.open('GET', '/company.json', true); //abro a conexao
-        ajax.send(); //envio o request
-        ajax.addEventListener('onreadystatechange', this.getCompanyInfo, false);
+        let ajax = new XMLHttpRequest();
+        ajax.open('GET', '/company.json', true);
+        ajax.send();
+        ajax.addEventListener('readystatechange', this.getCompanyInfo, false);
       },
 
       getCompanyInfo: function getCompanyInfo() {
-        if( this.readyState === 4 && this.status === 200 )
-          console.log( this.responseText );
-      }
+        if (!app().isReady.call(this)) return;
+        let data = JSON.parse(this.responseText);
+        let $companyName = new DOM('[data-js="company-name"]');
+        let $companyPhone = new DOM('[data-js="company-fone"]');
+
+        $companyName.get()[0].textContent = data.name;
+        $companyPhone.get()[0].textContent = data.phone;
+      },
+
+      isReady: function isReady() {
+        return this.readyState === 4 && this.status === 200;
+      },
     };
   }
 
-
   app().init();
-
 })(window.DOM);
