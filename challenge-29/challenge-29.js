@@ -51,13 +51,15 @@
       },
 
       getCompanyInfo: function getCompanyInfo() {
-        if (!app().isReady.call(this)) return;
+        if (!app().isReady.call(this)) {
+          return;
+        }
         let data = JSON.parse(this.responseText);
         let $companyName = new DOM('[data-js="company-name"]');
         let $companyPhone = new DOM('[data-js="company-fone"]');
 
-        $companyName.get()[0].textContent = data.name;
-        $companyPhone.get()[0].textContent = data.phone;
+        $companyName.get().textContent = data.name;
+        $companyPhone.get().textContent = data.phone;
       },
 
       isReady: function isReady() {
