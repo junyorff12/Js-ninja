@@ -63,11 +63,17 @@
         let $tdPlate = document.createElement('td');
         let $tdColor = document.createElement('td');
 
-        $tr.appendChild(($tdImage = $('[data-js="input-img" ]').get().value));
-        $tr.appendChild(($tdBrand = $('[data-js="input-marca" ]').get().value));
-        $tr.appendChild(($tdYear = $('[data-js="input-ano" ]').get().value));
-        $tr.appendChild(($tdPlate = $('[data-js="input-placa" ]').get().value));
-        $tr.appendChild(($tdColor = $('[data-js="input-cor" ]').get().value));
+        $tdImage = $('[data-js="input-img" ]').get().value;
+        $tdBrand = $('[data-js="input-marca" ]').get().value;
+        $tdYear = $('[data-js="input-ano" ]').get().value;
+        $tdPlate = $('[data-js="input-placa" ]').get().value;
+        $tdColor = $('[data-js="input-cor" ]').get().value;
+
+        $tr.appendChild($tdImage);
+        $tr.appendChild($tdBrand);
+        $tr.appendChild($tdYear);
+        $tr.appendChild($tdPlate);
+        $tr.appendChild($tdColor);
 
         return $fragment.appendChild($tr);
       },
