@@ -1,4 +1,4 @@
-(function(DOM) {
+(function($) {
   'use strict';
 
   /*
@@ -35,15 +35,44 @@
   E aqui nesse arquivo, faça a lógica para cadastrar os carros, em um módulo
   que será nomeado de "app".
   */
-  function app() {
+  let app = (function() {
     return {
       init: function init() {
         console.log('app init');
         this.companyInfo();
+        this.initEvents();
+      },
+
+      initEvents: function initEvents() {
+        $('[data-js="form-carros"]').on('submit', this.handleSubmit, false);
+      },
+
+      handleSubmit: function handleSubmit(e) {
+        e.preventDefault();
+        console.log('submit');
+        let $tableCars = $('[data-js="table-car"]').get();
+        $tableCars.appendChild(app.createNewCar());
+      },
+
+      createNewCar: function createNewCar() {
+        let $fragment = document.createDocumentFragment();
+        let $tr = document.createElement('tr');
+        let $tdImage = document.createElement('td');
+        let $tdBrand = document.createElement('td');
+        let $tdYear = document.createElement('td');
+        let $tdPlate = document.createElement('td');
+        let $tdColor = document.createElement('td');
+
+        $tr.appendChild(($tdImage = $('[data-js="input-img" ]').get().value));
+        $tr.appendChild(($tdBrand = $('[data-js="input-marca" ]').get().value));
+        $tr.appendChild(($tdYear = $('[data-js="input-ano" ]').get().value));
+        $tr.appendChild(($tdPlate = $('[data-js="input-placa" ]').get().value));
+        $tr.appendChild(($tdColor = $('[data-js="input-cor" ]').get().value));
+
+        return $fragment.appendChild($tr);
       },
 
       companyInfo: function companyInfo() {
-        console.log('company info');
         let ajax = new XMLHttpRequest();
         ajax.open('GET', '/company.json', true);
         ajax.send();
@@ -51,22 +80,22 @@
       },
 
       getCompanyInfo: function getCompanyInfo() {
-        if (!app().isReady.call(this)) {
+        if (!app.isReady.call(this)) {
           return;
         }
         let data = JSON.parse(this.responseText);
-        let $companyName = new DOM('[data-js="company-name"]');
-        let $companyPhone = new DOM('[data-js="company-fone"]');
+        let $companyName = new $('[data-js="company-name"]').get();
+        let $companyPhone = new $('[data-js="company-fone"]').get();
 
-        $companyName.get().textContent = data.name;
-        $companyPhone.get().textContent = data.phone;
+        $companyName.textContent = data.name;
+        $companyPhone.textContent = data.phone;
       },
 
       isReady: function isReady() {
         return this.readyState === 4 && this.status === 200;
       },
     };
-  }
+  })();
 
-  app().init();
+  app.init();
 })(window.DOM);
