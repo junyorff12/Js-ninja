@@ -38,20 +38,13 @@
 
   let $companyName = new DOM('[data-js="company-name"]');
   let $companyPhone = new DOM('[data-js="company-phone"]');
-
-  let $form = new DOM('[data-js="form-car"]');
-  $form.on('submit', handleSubmit, false);
-
-  function handleSubmit() {
-    
-  }
-
+  
   let ajax = new XMLHttpRequest();
   ajax.open('GET', '/company.json', true);
   ajax.send();
-
+  
   ajax.addEventListener('readystatechange', getCompanyInfo);
-
+  
   function getCompanyInfo() {
     if(!isRequestOk()) {
       return;
@@ -64,5 +57,48 @@
   function isRequestOk() {
     return (ajax.readyState === 4 && ajax.status === 200);
   }
+  
+  let $form = new DOM('[data-js="form-car"]');
+  $form.on('submit', handleSubmit, false);
 
+  function handleSubmit(event) {
+    event.preventDefault();
+    fillTheTable();
+  }  
+  
+  function fillTheTable() {
+    let $table = new DOM('[data-js="car-table"]').get()[0];
+    let $fragment = document.createDocumentFragment();
+
+    let $carImg = new DOM('[data-js="carImg"]').get()[0];
+    let $carBrandModel = new DOM('[data-js="carModelBrand"]').get()[0];
+    let $carYear = new DOM('[data-js="carYear"]').get()[0];
+    let $carPlate = new DOM('[data-js="carPlate"]').get()[0];
+    let $carColor = new DOM('[data-js="carColor"]').get()[0];
+
+    let tr = document.createElement('tr');
+
+    let tdImg = document.createElement('td');
+    let tdBrandModel = document.createElement('td');
+    let tdYear = document.createElement('td');
+    let tdPlate = document.createElement('td');
+    let tdColor = document.createElement('td');
+
+    tdImg.textContent = $carImg.value;
+    tdBrandModel.textContent = $carBrandModel.value;
+    tdYear.textContent = $carYear.value;
+    tdPlate.textContent = $carPlate.value;
+    tdColor.textContent = $carColor.value;
+
+    tr.appendChild(tdImg);
+    tr.appendChild(tdBrandModel);
+    tr.appendChild(tdYear);
+    tr.appendChild(tdPlate);
+    tr.appendChild(tdColor);
+
+    $fragment.appendChild(tr);
+
+    return $table.appendChild($fragment);
+  }
+      
 })(window.dom);

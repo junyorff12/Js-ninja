@@ -7,18 +7,24 @@ input {
 
 table {
 	float: right;
-	width: 50%;
+	width: 40%;
 	border: solid #808080 1px;
 	border-collapse: collapse;
+	margin-right: 15px;
 }
 
 form {
   width: 50%;
-  float: left;
+	float: left;
+	margin-left: 15px;
 }
 
-th {
+th,tr,td {
 	border: solid #808080 1px;
+}
+
+td {
+	padding-left: 4px;
 }
 
 header {
