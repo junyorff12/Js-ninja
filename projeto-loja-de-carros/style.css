@@ -1,0 +1,37 @@
+input {
+	display: block;
+	margin-bottom: 5px;
+	width: 50%;
+	height: 20px;
+}
+
+table {
+	float: right;
+	width: 50%;
+	border: solid #808080 1px;
+	border-collapse: collapse;
+}
+
+form {
+  width: 50%;
+  float: left;
+}
+
+th {
+	border: solid #808080 1px;
+}
+
+header {
+	text-align: center;
+}
+
+body {
+	font-family: sans-serif;
+}
+
+button {
+	background-color: #008000;
+	width: 25%;
+	height: 30px;
+	color: #f0ffff;
+}
