@@ -38,7 +38,6 @@
   let app = (function() {
     return {
       init: function init() {
-        console.log('app init');
         this.companyInfo();
         this.initEvents();
       },

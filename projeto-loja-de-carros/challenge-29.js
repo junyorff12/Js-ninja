@@ -43,15 +43,15 @@
   ajax.open('GET', '/company.json', true);
   ajax.send();
   
-  ajax.addEventListener('readystatechange', getCompanyInfo);
+  ajax.addEventListener('readystatechange', getCompanyInfo, false );
   
   function getCompanyInfo() {
     if(!isRequestOk()) {
       return;
     }
     let data = JSON.parse(ajax.responseText);
-    $companyName.get()[0].textContent = data.name;
-    $companyPhone.get()[0].textContent = data.phone;
+    $companyName.get().textContent = data.name;
+    $companyPhone.get().textContent = data.phone;
   }
 
   function isRequestOk() {
@@ -67,22 +67,26 @@
   }  
   
   function fillTheTable() {
-    let $table = new DOM('[data-js="car-table"]').get()[0];
+    let $table = new DOM('[data-js="car-table"]').get();
     let $fragment = document.createDocumentFragment();
 
-    let $carImg = new DOM('[data-js="carImg"]').get()[0];
-    let $carBrandModel = new DOM('[data-js="carModelBrand"]').get()[0];
-    let $carYear = new DOM('[data-js="carYear"]').get()[0];
-    let $carPlate = new DOM('[data-js="carPlate"]').get()[0];
-    let $carColor = new DOM('[data-js="carColor"]').get()[0];
-
+    let $carBrandModel = new DOM('[data-js="carModelBrand"]').get();
+    let $carYear = new DOM('[data-js="carYear"]').get();
+    let $carPlate = new DOM('[data-js="carPlate"]').get();
+    let $carColor = new DOM('[data-js="carColor"]').get();
+    
     let tr = document.createElement('tr');
-
+    
+    let $carImg = new DOM('[data-js="carImg"]').get();
     let tdImg = document.createElement('td');
+    let image = document.createElement('img');
     let tdBrandModel = document.createElement('td');
     let tdYear = document.createElement('td');
     let tdPlate = document.createElement('td');
     let tdColor = document.createElement('td');
+
+    image.src = $carImg.value;
+    tdImg.appendChild(image);
 
     tdImg.textContent = $carImg.value;
     tdBrandModel.textContent = $carBrandModel.value;
