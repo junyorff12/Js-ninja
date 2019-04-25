@@ -36,73 +36,11 @@
   que será nomeado de "app".
   */
 
-  let $companyName = new DOM('[data-js="company-name"]');
-  let $companyPhone = new DOM('[data-js="company-phone"]');
-  
-  let ajax = new XMLHttpRequest();
-  ajax.open('GET', '/company.json', true);
-  ajax.send();
-  
-  ajax.addEventListener('readystatechange', getCompanyInfo, false );
-  
-  function getCompanyInfo() {
-    if(!isRequestOk()) {
-      return;
+  let app = (function(){
+    return {
+
     }
-    let data = JSON.parse(ajax.responseText);
-    $companyName.get().textContent = data.name;
-    $companyPhone.get().textContent = data.phone;
-  }
+  })();
 
-  function isRequestOk() {
-    return (ajax.readyState === 4 && ajax.status === 200);
-  }
   
-  let $form = new DOM('[data-js="form-car"]');
-  $form.on('submit', handleSubmit, false);
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    fillTheTable();
-  }  
-  
-  function fillTheTable() {
-    let $table = new DOM('[data-js="car-table"]').get();
-    let $fragment = document.createDocumentFragment();
-
-    let $carBrandModel = new DOM('[data-js="carModelBrand"]').get();
-    let $carYear = new DOM('[data-js="carYear"]').get();
-    let $carPlate = new DOM('[data-js="carPlate"]').get();
-    let $carColor = new DOM('[data-js="carColor"]').get();
-    
-    let tr = document.createElement('tr');
-    
-    let $carImg = new DOM('[data-js="carImg"]').get();
-    let tdImg = document.createElement('td');
-    let image = document.createElement('img');
-    let tdBrandModel = document.createElement('td');
-    let tdYear = document.createElement('td');
-    let tdPlate = document.createElement('td');
-    let tdColor = document.createElement('td');
-
-    image.src = $carImg.value;
-    tdImg.appendChild(image);
-
-    tdImg.textContent = $carImg.value;
-    tdBrandModel.textContent = $carBrandModel.value;
-    tdYear.textContent = $carYear.value;
-    tdPlate.textContent = $carPlate.value;
-    tdColor.textContent = $carColor.value;
-
-    tr.appendChild(tdImg);
-    tr.appendChild(tdBrandModel);
-    tr.appendChild(tdYear);
-    tr.appendChild(tdPlate);
-    tr.appendChild(tdColor);
-
-    $fragment.appendChild(tr);
-
-    return $table.appendChild($fragment);
-  }
-      
 })(window.dom);
