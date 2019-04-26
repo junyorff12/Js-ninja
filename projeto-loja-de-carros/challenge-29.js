@@ -1,4 +1,4 @@
-(function(Dom) {
+(function(DOM) {
   'use strict';
 
   /*
@@ -38,9 +38,35 @@
 
   let app = (function(){
     return {
+      init: function() {
+        this.getCompanyInfo();
+      },
 
+      getCompanyInfo: function getCompanyInfo(){
+        let ajax = new XMLHttpRequest();
+        ajax.open('GET', '/company.json', true);
+        ajax.send();
+        ajax.addEventListener('readystatechange', this.getData, false);
+        
+      },
+
+      getData: function getData() {
+        if(!(app.isRequestOK.call(this)))
+          return;
+        let $companyName = new DOM('[data-js="company-name"]').get();
+        let $companyPhone = new DOM('[data-js="company-phone"]').get();
+        let data = JSON.parse(ajax.responseText);
+        $companyName.textContent = data.name;
+        $companyPhone.textContent = data.phone;
+      },
+
+      isRequestOK: function isRequestOK() {
+        return ajax.readyState === 4 && ajax.status === 200;
+      }
     }
+
   })();
 
-  
+  app.init();
+
 })(window.dom);
