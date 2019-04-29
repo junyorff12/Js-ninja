@@ -1,8 +1,10 @@
 (function(){
     'use strict';
 
-    function DOM( string ){
-      this.element = document.querySelectorAll(string);
+    function DOM( element ){
+      if(!(this instanceof DOM))
+        return new DOM(element);
+      this.element = document.querySelectorAll(element);
     }
 
     DOM.prototype.on = function(event, callback ) {
