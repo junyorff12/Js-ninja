@@ -2,7 +2,7 @@
     'use strict';
 
     function DOM( string ){
-    this.element = document.querySelectorAll(string);
+      this.element = document.querySelectorAll(string);
     }
 
     DOM.prototype.on = function(event, callback ) {
