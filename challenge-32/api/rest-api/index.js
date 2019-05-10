@@ -19,7 +19,7 @@ let users = {
       age: 32
    }
 }
-app.use(bodyParser({extende: false}));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
 
 app.get('/', function(req, res){
