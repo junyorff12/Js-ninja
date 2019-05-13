@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>App de carros</title>
+  </head>
+  <body>
+    <!-- <div class="container main div"></div> -->
+    <header>
+      <h1>
+        <span data-js="company-name"></span> -
+        <span data-js="company-fone"></span>
+      </h1>
+    </header>
+
+    <form data-js="form-carros">
+      imagem do carro:
+      <input type="url" data-js="input-img" />
+      Marca / Modelo:
+      <input type="text" data-js="input-marca" />
+      Ano:
+      <input type="text" data-js="input-ano" />
+      Placa:
+      <input type="text" data-js="input-placa" />
+      Cor:
+      <input type="text" data-js="input-cor" />
+      <button type="submit" data-js="cadastrar">Cadastrar</button>
+    </form>
+
+    <table data-js="table-car">
+      <th>img</th>
+      <th>Marca/Modelo</th>
+      <th>Ano</th>
+      <th>Placa</th>
+      <th>Cor</th>
+    </table>
+
+    <script src="dom.js"></script>
+    <script src="challenge-29.js"></script>
+    <!-- <script src="scope.js"></script> -->
+    <!-- <script src="styel-css.js"></script> -->
+  </body>
+</html>
