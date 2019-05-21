@@ -58,14 +58,6 @@ do curso, para colar o link do pull request do seu repo.
         this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);
       },
 
-      postNewCar: function postNewCar() {
-        let ajaxPost = new XMLHttpRequest();
-        ajaxPost.open('POST', 'http://localhost:3000/cars', true);
-        ajaxPost.setRequestHeader('Content-Type', 'Application/x-www-form-urlencoded');
-        ajaxPost.send()
-
-      },
-
       saveNewCar: function saveNewCar() {
     
         let $img = new DOM('[data-js="carImg"]').get();
@@ -84,6 +76,13 @@ do curso, para colar o link do pull request do seu repo.
         let tdColor = document.createElement('td');
         let tdRemove = document.createElement('td') // td remove
         let $removeButton = document.createElement('button');
+
+       
+        let ajaxPost = new XMLHttpRequest();
+        ajaxPost.open('POST', 'http://localhost:3000/cars', true);
+        ajaxPost.setRequestHeader('Content-Type', 'Application/x-www-form-urlencoded');
+        ajaxPost.send()
+        
         
         $removeButton.style.width = '100%';
         $removeButton.textContent = 'Remover';

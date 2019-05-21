@@ -1,0 +1,8 @@
+1 - Post do client para Server
+2 - Criar um array de Objetos no Server
+3 - Get do Client para o Server, para pegar os dados do Array de Objetos
+4 - Quando Clicar CADASTRAR {
+  verificar se ja exixte o carro cadastrado NO array, (SOME, FILTER);
+  se n, dar um append no Array.
+  atualizar a lista de carros feita n o primeiro GET
+}
