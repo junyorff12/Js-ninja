@@ -58,6 +58,14 @@ do curso, para colar o link do pull request do seu repo.
         this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);
       },
 
+      postNewCar: function postNewCar() {
+        let ajaxPost = new XMLHttpRequest();
+        ajaxPost.open('POST', 'http://localhost:3000/cars', true);
+        ajaxPost.setRequestHeader('Content-Type', 'Application/x-www-form-urlencoded');
+        ajaxPost.send()
+
+      },
+
       saveNewCar: function saveNewCar() {
     
         let $img = new DOM('[data-js="carImg"]').get();

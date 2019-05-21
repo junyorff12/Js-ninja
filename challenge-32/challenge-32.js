@@ -19,6 +19,7 @@ As mudanças que você irá precisar fazer no seu projeto são:
 
 - Para listar os carros cadastrados ao carregar o seu projeto, faça um request GET no endereço
 `http://localhost:3000/car`
+
 - Para cadastrar um novo carro, faça um POST no endereço `http://localhost:3000/car`, enviando
 os seguintes campos:
   - `image` com a URL da imagem do carro;
