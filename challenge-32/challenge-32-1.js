@@ -18,6 +18,7 @@ do curso, para colar o link do pull request do seu repo.
       init: function() {
         this.getCompanyInfo();
         this.initEvents();
+        this.getCars();
       },
 
       getCompanyInfo: function getCompanyInfo(){
@@ -49,8 +50,24 @@ do curso, para colar o link do pull request do seu repo.
 
       handleSubmit: function handleSubmit(e) {
         e.preventDefault();
-        let $tableCar = new DOM('[data-js="car-table"]').get();
-        $tableCar.appendChild(app.saveNewCar());
+        let $img = new DOM('[data-js="carImg"]').get();
+        let $modelBrand = new DOM('[data-js="carModelBrand"]').get();
+        let $year = new DOM('[data-js="carYear"]').get();
+        let $plate = new DOM('[data-js="carPlate"]').get();
+        let $color = new DOM('[data-js="carColor"]').get();
+
+        let postCar = new XMLHttpRequest();
+        postCar.open('POST', 'http://localhost:3000/car', true);
+        postCar.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        postCar.onreadystatechange = function() {
+          console.log(this.readyState, this.status);
+        }   
+        postCar.send(`image=${$img.value}
+                      &brandModel=${$modelBrand.value}
+                      &year=${$year.value}
+                      &plate=${$plate.value}
+                      &color=${$color.value}`);
+        app.getCars();
       },
 
       removeLine: function removeLine() {
@@ -58,53 +75,63 @@ do curso, para colar o link do pull request do seu repo.
         this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);
       },
 
-      saveNewCar: function saveNewCar() {
+      getCars: function getCars() {
+        let getCars = new XMLHttpRequest();
+        getCars.open('GET', 'http://localhost:3000/car', true);
+        getCars.send();
+
+        getCars.onreadystatechange = function() {
+          if(!(app.isRequestOK.call(this))) {            
+            return;
+          }
+
+          let $tableCar = new DOM('[data-js="car-table"]').get();
+          let responseData = JSON.parse(this.responseText);
+          responseData.forEach( (data) => {
+            console.log(data);
+
+            let fragment = document.createDocumentFragment();
+            let tr = document.createElement('tr');
+            let img = document.createElement('img');
+            let tdImg = document.createElement('td');
+            let tdModelBrand = document.createElement('td');
+            let tdYear = document.createElement('td');
+            let tdPlate = document.createElement('td');
+            let tdColor = document.createElement('td');
+            let tdRemove = document.createElement('td') // td remove
+            let $removeButton = document.createElement('button');
+
+            $removeButton.style.width = '100%';
+            $removeButton.classList.add('remove-btn');
+            $removeButton.textContent = 'Remover';
+            $removeButton.addEventListener('click', app.removeLine);
+
+            img.src = data.image;
+            tdModelBrand.textContent = data.brandModel;
+            tdYear.textContent = data.year;
+            tdPlate.textContent = data.plate;
+            tdPlate.setAttribute('data-js', 'tdplate-id');
+            tdColor.textContent = data.color;
+            tdImg.appendChild(img);
+            tdRemove.appendChild($removeButton);
+            
+            tr.appendChild(tdImg);
+            tr.appendChild(tdModelBrand);
+            tr.appendChild(tdYear);
+            tr.appendChild(tdPlate);
+            tr.appendChild(tdColor);
+            tr.appendChild(tdRemove); // td remove
     
-        let $img = new DOM('[data-js="carImg"]').get();
-        let $modelBrand = new DOM('[data-js="carModelBrand"]').get();
-        let $year = new DOM('[data-js="carYear"]').get();
-        let $plate = new DOM('[data-js="carPlate"]').get();
-        let $color = new DOM('[data-js="carColor"]').get();
+            fragment.appendChild(tr);
 
-        let fragment = document.createDocumentFragment();
-        let tr = document.createElement('tr');
-        let img = document.createElement('img');
-        let tdImg = document.createElement('td');
-        let tdModelBrand = document.createElement('td');
-        let tdYear = document.createElement('td');
-        let tdPlate = document.createElement('td');
-        let tdColor = document.createElement('td');
-        let tdRemove = document.createElement('td') // td remove
-        let $removeButton = document.createElement('button');
+            return $tableCar.appendChild(fragment);
+            
+          });          
+        }
+         
+      },
 
-       
-        let ajaxPost = new XMLHttpRequest();
-        ajaxPost.open('POST', 'http://localhost:3000/cars', true);
-        ajaxPost.setRequestHeader('Content-Type', 'Application/x-www-form-urlencoded');
-        ajaxPost.send()
-        
-        
-        $removeButton.style.width = '100%';
-        $removeButton.textContent = 'Remover';
-        $removeButton.addEventListener('click', this.removeLine);
-
-        img.src = $img.value;
-        tdModelBrand.textContent = $modelBrand.value;
-        tdYear.textContent = $year.value;
-        tdPlate.textContent = $plate.value;
-        tdColor.textContent = $color.value;
-        tdImg.appendChild(img);
-        tdRemove.appendChild($removeButton);
-        
-        tr.appendChild(tdImg);
-        tr.appendChild(tdModelBrand);
-        tr.appendChild(tdYear);
-        tr.appendChild(tdPlate);
-        tr.appendChild(tdColor);
-        tr.appendChild(tdRemove); // td remove
-
-        return fragment.appendChild(tr);
-      }
+      
     
     } //fecha o return
 

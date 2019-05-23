@@ -7,10 +7,15 @@ table {
 
 th,
 td {
-  border: 1px solid #d8d8d8;
-  height: 30px;
+  border: 1px solid #ECEFF4;
+  height: 40px;
   width: 100px;
   padding: 0 5px 0 5px;
+}
+
+.remove-btn {
+  background-color: #d64161;
+  height: 25px;
 }
 
 form {
@@ -35,17 +40,20 @@ img {
   height: 100%;
 }
 
-button {
-  margin-top: 10px;
-  background-color: #04b404;
+.button-cadastrar, .remove-btn{
   width: 120px;
-  height: 30px;
-  border-radius: 6px;
+  border-radius: 5px;
   color: #fff;
 }
 
-body {
+.button-cadastrar {
+  background-color: #36486b;
+  height: 30px;
+}
+
+.container {
   font-family: sans-serif;
+  background: linear-gradient(to right, #7f7fd5, #86a8e7 ,#91eae4);
 }
 
 /* .container {
