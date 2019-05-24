@@ -1,15 +1,20 @@
-table {
+.car-table {
+  border-collapse: collapse;
   float: right;
   margin: 10px;
-  border-collapse: collapse;
   width: 45%;
 }
 
-th,
-td {
-  border: 1px solid #ECEFF4;
-  height: 40px;
-  width: 100px;
+.img-car:first-child {
+  width: 20px;
+  height: 30px;
+
+}
+ 
+th, td {
+  border: 1px solid #abacad;
+  height: 50px;
+  width: 180px;
   padding: 0 5px 0 5px;
 }
 
@@ -47,13 +52,13 @@ img {
 }
 
 .button-cadastrar {
-  background-color: #36486b;
+  background-color: #167539;
   height: 30px;
 }
 
 .container {
   font-family: sans-serif;
-  background: linear-gradient(to right, #7f7fd5, #86a8e7 ,#91eae4);
+  background: linear-gradient(to right, #fdfbfb , #ebedee);
 }
 
 /* .container {

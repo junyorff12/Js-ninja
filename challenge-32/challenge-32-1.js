@@ -66,13 +66,12 @@ do curso, para colar o link do pull request do seu repo.
                       &plate=${$plate.value}
                       &color=${$color.value}`);
         postCar.onreadystatechange = function() {
-          if(!(this.readyState === 4)){
-            return console.log('erro', this.readyState, this.status);
+          if(this.readyState === 4){
+            let $tbody = new DOM('[data-js="tbody-car"]').get();
+            $tbody.parentNode.removeChild($tbody);
+            app.getCars();
           }
-        };
-
-        console.log('[]');
-
+        }; 
       },
 
       removeLine: function removeLine() {
@@ -91,6 +90,9 @@ do curso, para colar o link do pull request do seu repo.
           }
 
           let $tableCar = new DOM('[data-js="car-table"]').get();
+          let $tbody = document.createElement('tbody');
+          $tbody.setAttribute('data-js', 'tbody-car');
+          $tableCar.appendChild($tbody);
           let responseData = JSON.parse(this.responseText);
           responseData.forEach( (data) => {
             console.log(data);
@@ -111,12 +113,17 @@ do curso, para colar o link do pull request do seu repo.
             $removeButton.textContent = 'Remover';
             $removeButton.addEventListener('click', app.removeLine);
 
-            img.src = data.image;
-            tdModelBrand.textContent = data.brandModel;
-            tdYear.textContent = data.year;
-            tdPlate.textContent = data.plate;
-            tdPlate.setAttribute('data-js', 'tdplate-id');
-            tdColor.textContent = data.color;
+            let image = data.image.trim()
+            let brandModel = data.brandModel.trim();
+            let year = data.year.toString().trim();
+            let plate = data.plate.trim();
+            let color = data.color.trim();
+            
+            img.src = image;
+            tdModelBrand.textContent = brandModel;
+            tdYear.textContent = year;
+            tdPlate.textContent = plate;
+            tdColor.textContent = color;
             tdImg.appendChild(img);
             tdRemove.appendChild($removeButton);
             
@@ -129,7 +136,7 @@ do curso, para colar o link do pull request do seu repo.
     
             fragment.appendChild(tr);
 
-            return $tableCar.appendChild(fragment);
+            return $tbody.appendChild(fragment);
             
           });          
         }
