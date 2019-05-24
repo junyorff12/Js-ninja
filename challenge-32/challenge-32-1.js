@@ -50,6 +50,7 @@ do curso, para colar o link do pull request do seu repo.
 
       handleSubmit: function handleSubmit(e) {
         e.preventDefault();
+        
         let $img = new DOM('[data-js="carImg"]').get();
         let $modelBrand = new DOM('[data-js="carModelBrand"]').get();
         let $year = new DOM('[data-js="carYear"]').get();
@@ -59,15 +60,19 @@ do curso, para colar o link do pull request do seu repo.
         let postCar = new XMLHttpRequest();
         postCar.open('POST', 'http://localhost:3000/car', true);
         postCar.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        postCar.onreadystatechange = function() {
-          console.log(this.readyState, this.status);
-        }   
         postCar.send(`image=${$img.value}
                       &brandModel=${$modelBrand.value}
                       &year=${$year.value}
                       &plate=${$plate.value}
                       &color=${$color.value}`);
-        app.getCars();
+        postCar.onreadystatechange = function() {
+          if(!(this.readyState === 4)){
+            return console.log('erro', this.readyState, this.status);
+          }
+        };
+
+        console.log('[]');
+
       },
 
       removeLine: function removeLine() {
