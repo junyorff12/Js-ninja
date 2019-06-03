@@ -25,11 +25,11 @@ do curso, para colar o link do pull request do seu repo.
         let ajax = new XMLHttpRequest();
         ajax.open('GET', '/company.json', true);
         ajax.send();
-        ajax.addEventListener('readystatechange', this.getData, false);
+        ajax.addEventListener('readystatechange', this.getCompanyData, false);
         
       },
 
-      getData: function getData() {
+      getCompanyData: function getCompanyData() {
         if(!(app.isRequestOK.call(this)))
           return;
         let $companyName = new DOM('[data-js="company-name"]').get();
