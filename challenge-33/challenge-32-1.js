@@ -82,7 +82,7 @@ do curso, para colar o link do pull request do seu repo.
         let ajax = new XMLHttpRequest();
         ajax.open('DELETE', 'http://localhost:3000/car', true);
         ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        ajax.send('plate='+this.getAttibute('data-js'));
+        ajax.send('plate='+this.getAttribute('data-js'));
       },
 
     
