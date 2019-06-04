@@ -50,7 +50,10 @@ do curso, para colar o link do pull request do seu repo.
 
       handleSubmit: function handleSubmit(e) {
         e.preventDefault();
-        
+        app.postCarOnServer();
+      },
+
+      postCarOnServer: function postCarOnServer() {
         let $img = new DOM('[data-js="carImg"]').get();
         let $modelBrand = new DOM('[data-js="carModelBrand"]').get();
         let $year = new DOM('[data-js="carYear"]').get();
@@ -83,9 +86,12 @@ do curso, para colar o link do pull request do seu repo.
         ajax.open('DELETE', 'http://localhost:3000/car', true);
         ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         ajax.send('plate='+this.getAttribute('data-js'));
+        
+        ajax.onreadystatechange = () => {
+          console.log('success');
+          };
       },
-
-    
+ 
       getCars: function getCars() {
         let getCars = new XMLHttpRequest();
         getCars.open('GET', 'http://localhost:3000/car', true);
@@ -101,57 +107,63 @@ do curso, para colar o link do pull request do seu repo.
           $tbody.setAttribute('data-js', 'tbody-car');
           $tableCar.appendChild($tbody);
           let responseData = JSON.parse(this.responseText);
-          responseData.forEach( (data) => {
-            console.log(data);
-
-            let fragment = document.createDocumentFragment();
-            let tr = document.createElement('tr');
-            let img = document.createElement('img');
-            let tdImg = document.createElement('td');
-            let tdModelBrand = document.createElement('td');
-            let tdYear = document.createElement('td');
-            let tdPlate = document.createElement('td');
-            let tdColor = document.createElement('td');
-            let tdRemove = document.createElement('td') // td remove
-            let $removeButton = document.createElement('button');
-            $removeButton.setAttribute('data-js', data.plate);
-
-            $removeButton.style.width = '100%';
-            $removeButton.classList.add('remove-btn');
-            $removeButton.textContent = 'Remover';
-            $removeButton.addEventListener('click', app.removeLine);
-
-            let image = data.image.trim()
-            let brandModel = data.brandModel.trim();
-            let year = data.year.toString().trim();
-            let dataPlate = data.plate.trim();
-            let color = data.color.trim();
-            
-            img.src = image;
-            tdModelBrand.textContent = brandModel;
-            tdYear.textContent = year;
-            tdPlate.textContent = dataPlate;
-            tdColor.textContent = color;
-            tdImg.appendChild(img);
-            tdRemove.appendChild($removeButton);
-            
-            tr.appendChild(tdImg);
-            tr.appendChild(tdModelBrand);
-            tr.appendChild(tdYear);
-            tr.appendChild(tdPlate);
-            tr.appendChild(tdColor);
-            tr.appendChild(tdRemove); // td remove
-    
-            fragment.appendChild(tr);
-
-            return $tbody.appendChild(fragment);
-            
-          });          
+          
+          app.fillTheTable(responseData, $tbody);
+          console.dir(responseData);
         }
          
       },
 
-      
+      fillTheTable: function fillTheTable(responseData, $tbody) {
+          responseData.forEach( (data) => {
+            return $tbody.appendChild(app.fillTheBody(data));   
+          });
+      },
+
+      fillTheBody: function fillTheBody(data) {
+        let fragment = document.createDocumentFragment();
+        let tr = document.createElement('tr');
+        let img = document.createElement('img');
+        let tdImg = document.createElement('td');
+        let tdModelBrand = document.createElement('td');
+        let tdYear = document.createElement('td');
+        let tdPlate = document.createElement('td');
+        let tdColor = document.createElement('td');
+        let tdRemove = document.createElement('td') // td remove
+        let $removeButton = document.createElement('button');
+        $removeButton.setAttribute('data-js', data.plate);
+
+        $removeButton.style.width = '100%';
+        $removeButton.classList.add('remove-btn');
+        $removeButton.textContent = 'Remover';
+        $removeButton.addEventListener('click', app.removeLine);
+
+        let image = data.image.trim()
+        let brandModel = data.brandModel.trim();
+        let year = data.year.toString().trim();
+        let dataPlate = data.plate.trim();
+        let color = data.color.trim();
+        
+        img.src = image;
+        tdModelBrand.textContent = brandModel;
+        tdYear.textContent = year;
+        tdPlate.textContent = dataPlate;
+        tdColor.textContent = color;
+        tdImg.appendChild(img);
+        tdRemove.appendChild($removeButton);
+        
+        tr.appendChild(tdImg);
+        tr.appendChild(tdModelBrand);
+        tr.appendChild(tdYear);
+        tr.appendChild(tdPlate);
+        tr.appendChild(tdColor);
+        tr.appendChild(tdRemove); // td remove
+
+        fragment.appendChild(tr);
+
+        return fragment;
+
+      }
     
     } //fecha o return
 
