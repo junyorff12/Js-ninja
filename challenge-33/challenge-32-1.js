@@ -114,7 +114,7 @@ do curso, para colar o link do pull request do seu repo.
             let tdColor = document.createElement('td');
             let tdRemove = document.createElement('td') // td remove
             let $removeButton = document.createElement('button');
-            $removeButton.setAttribute('data-js', dataPlate);
+            $removeButton.setAttribute('data-js', data.plate);
 
             $removeButton.style.width = '100%';
             $removeButton.classList.add('remove-btn');
